@@ -1,0 +1,23 @@
+name: Update Dev Environment
+on:
+  repository_dispatch:
+    types: [update-dev-tag]
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update values.yaml
+        run: |
+          sed -i "s/tag:.*/tag: ${{ github.event.client_payload.tag }}/" values-dev.yaml
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "Update dev tag to ${{ github.event.client_payload.tag }}"
+          branch: "update-dev-${{ github.event.client_payload.tag }}"
+          title: "Update dev tag to ${{ github.event.client_payload.tag }}"
+          body: "This PR updates the dev environment tag to ${{ github.event.client_payload.tag }}."
+          base: "main"

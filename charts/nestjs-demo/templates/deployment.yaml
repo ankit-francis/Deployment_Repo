@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nestjs-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nestjs-demo
+  template:
+    metadata:
+      labels:
+        app: nestjs-demo
+    spec:
+      containers:
+        - name: nestjs-demo
+          image: "docker.io/ankit-francis/nestjs-demo:{{ .Values.tag }}"
+          ports:
+            - containerPort: 3000
