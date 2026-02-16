@@ -11,7 +11,7 @@ jobs:
 
       - name: Update values.yaml
         run: |
-          sed -i "s/tag:.*/tag: ${{ github.event.client_payload.tag }}/" values-dev.yaml
+          sed -i "s/tag:.*/tag: ${{ github.event.client_payload.tag }}/" environments/dev/values.yaml
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
