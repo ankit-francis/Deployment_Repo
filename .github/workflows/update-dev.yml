@@ -16,6 +16,7 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "Update dev tag to ${{ github.event.client_payload.tag }}"
           branch: "update-dev-${{ github.event.client_payload.tag }}"
           title: "Update dev tag to ${{ github.event.client_payload.tag }}"
